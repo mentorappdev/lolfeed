@@ -3,6 +3,7 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 import ProfileBox from "../components/ProfileBox/ProfileBox";
+import NavigationBox from "../components/NavigationBox/NavigationBox";
 
 const Home: NextPage = () => {
   const {data, isLoading} = trpc.example.summoner.useQuery({ summonerName : 'faker' });
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
           lp = {1071}
           profilePictureSrc = "/images/Other/ahri-profile-picture.jpg"
         />
+        <NavigationBox />
         <AuthShowcase />
       </main>
     </>

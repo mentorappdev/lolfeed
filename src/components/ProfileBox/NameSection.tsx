@@ -10,7 +10,7 @@ interface NameSectionProps {
 const NameSection = ({name, username, isUserApproved} : NameSectionProps) => {
 	return (
 		<div className="">
-			<div id="name-section-name" className="text-2xl font-semibold">
+			<div id="name-section-name" className="text-2xl font-bold">
 				{name}
 			</div>
 			<div id="name-section-username" className="text-lighttext hover:text-regulartext cursor-pointer">
