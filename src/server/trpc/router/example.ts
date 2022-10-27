@@ -1,15 +1,20 @@
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure } from "../trpc"
 import { z } from "zod";
 
-export const exampleRouter = router({
-  hello: publicProcedure
-    .input(z.object({ text: z.string().nullish() }).nullish())
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input?.text ?? "world"}`,
+export const riotRouter = router({
+	summoner: publicProcedure
+	 .input(z.object({ 
+		summonerName: z.string()
+	}))
+	.query( async ({ input }) => {
+		const summoner = await fetch(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${input.summonerName}?api_key=RGAPI-bc5cfafa-8089-4998-9e46-61024d627d2e`, {
+			headers: {
+				"X-Riot-Token": "RGAPI-bc5cfafa-8089-4998-9e46-61024d627d2e"
+		  	}
+		});
+		console.log('be:',await summoner.json());
+	  	return {
+        summoner: summoner,
       };
-    }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
-  }),
+	}),
 });
